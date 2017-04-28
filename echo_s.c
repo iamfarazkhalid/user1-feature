@@ -36,6 +36,8 @@ int main(int argc, char *argv[])
 	 int x = argc - 1; // the last variable is the socket type
 	 int i = 1;	// index to go through port numbers
 	 int childpid;
+	 
+
 	 while (i < (argc - 1))		// this should ensure that every port is being listened on - Nicolette
 	 {
 		 // Nicolette wrote
