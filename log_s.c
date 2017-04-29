@@ -69,6 +69,8 @@ int main(int argc, char *argv[])
 
 	   if (messgstr == "echo_s is stoping")// By Emnet help and suggestion by Nicollet
 	      {
+	      myfile << messgstr << endl; // Code written by Kent Grossling
+	      myfile.close(log.txt); 
 	      exit(0);
 	      }
 	   childpd = fork();
