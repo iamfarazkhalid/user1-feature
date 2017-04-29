@@ -14,9 +14,9 @@ void ReadFromClient (char buffer[256], int sockfd, int n);
 
 void WriteToClient (char buffer[256], int sockfd, int n);
 
-void CreateChild(int newsockfd, int sockfd, struct sockaddr_in cli_addr, socklen_t fromlen);
+void CreateChild(int newsockfd, int sockfd, struct sockaddr_in cli_addr, socklen_t fromlen, bool keepRunning);
 
 // added by Nicolette
-void CreateUDPChild(int n, int sockfd, struct sockaddr_in cli_addr, int clilen);
+void CreateUDPChild(int n, int sockfd, struct sockaddr_in cli_addr, int clilen, bool keepRunning);
 
 #endif

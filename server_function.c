@@ -59,8 +59,27 @@ void WriteToClient (char buffer[256], int sockfd, int n) {
 }
 
 // function added by Nicolette based on code from Afham
-void CreateUDPChild(int n, int sockfd, struct sockaddr_in cli_addr, int clilen)
+void CreateUDPChild(int n, int sockfd, struct sockaddr_in cli_addr, int clilen, bool keepRunning)//Emnet bool keepRunning to get the messege echo_ s is stoping 
 {
+                if (keepRunning == 0)
+		  {
+	       // codes from Nicollet modifed by Emnet
+	       sock2 = socket(AF_INET, SOCK_DGRAM, 0); 
+		if (sock2 < 0) error("Opening socket");
+		length = sizeof(server);
+		bzero(&server,length);
+		server.sin_family=AF_INET;
+		server.sin_addr.s_addr=INADDR_ANY;
+		server.sin_port=htons(9999);
+	   bind(sock2,(struct sockaddr *)&server,length)
+	   clilen = sizeof(struct sockaddr_in);
+	   sendto(1, cli_addr, clilen, 0, (struct soackaddr *)&server, tolen);			// this is IP address?
+	   sendto(1, "echo_s is stopping",19, 0, (struct soackaddr *)&server, tolen);		// this is message from client // Emnet 
+	   sendto(1, timeStamp, 50, 0, (struct soackaddr *)&server, tolen);		// this should write timestamp?
+	    
+	    exit (0);
+                  }
+
 		// added by Nicolette for Deliverable 2
 		int sock2, length;
 		struct sockaddr_in server;
@@ -101,7 +120,7 @@ void CreateUDPChild(int n, int sockfd, struct sockaddr_in cli_addr, int clilen)
 }	
 
 
-void CreateChild(int newsockfd, int sockfd, struct sockaddr_in cli_addr, socklen_t fromlen)
+void CreateChild(int newsockfd, int sockfd, struct sockaddr_in cli_addr, socklen_t fromlen, bool keepRunning)
 {
 		// added by Nicolette for Deliverable 2
 		int sock2, length;
