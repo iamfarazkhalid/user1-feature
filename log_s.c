@@ -33,6 +33,7 @@ void error(const char *msg)
 int main(int argc, char *argv[])
 {
    int sock, length, n, childpd;
+ int port_number;//syed
    socklen_t fromlen;
    struct sockaddr_in server;
    struct sockaddr_in from;
@@ -41,18 +42,18 @@ int main(int argc, char *argv[])
    char Timebuf[50];
 	ofstream myfile;
    
- //  if (argc < 2) {  // no port needs to be provided, its always 9999, so i think this if statement can be removed
-  //    fprintf(stderr, "ERROR, no port provided\n");
- //     exit(0);
- //  }
-   
+   if (argc < 2) { 
+      fprintf(stderr, "ERROR, no port provided\n");
+      exit(0);
+   }
+   port_number=*(argv[argc-1]);//convert the string port number into integer ,syedhassan
    sock=socket(AF_INET, SOCK_DGRAM, 0);
    if (sock < 0) error("Opening socket");
    length = sizeof(server);
    bzero(&server,length);
    server.sin_family=AF_INET;
    server.sin_addr.s_addr=INADDR_ANY;
-   server.sin_port=htons(9999);  // I think this atio part needs to be changed to 9999, since portno is known
+   server.sin_port=htons(port_number);  // I think this atio part needs to be changed to 9999, since portno is known
    if (bind(sock,(struct sockaddr *)&server,length)<0) 
        error("binding");
    fromlen = sizeof(struct sockaddr_in);
