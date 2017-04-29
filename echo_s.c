@@ -8,12 +8,13 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include "server_functions.h"
-
+#include <signal.h>
 void error(const char *msg)
 {
     perror(msg);
     exit(1);
 }
+
 // by Emnet Nadew
 // Zombies clog the process in the kernel and it is a process which has terminated but not fully permited to die and the parent might execute a wait to inform the death of the child 
 void *SigCather(int n)// will be called whenever the parent recieves a Child dies
@@ -21,11 +22,24 @@ void *SigCather(int n)// will be called whenever the parent recieves a Child die
      wait3(NULL,WNOHANG,NULL);//WNOHANG is a set that causes it to be a non-blocking wait
    }
 
+static bool keepRunning=1;//Emnet will check if the system is running or not and set it true 
+
+void exitFunction(int x)//By Emnet
+     keeprunning=0;
+ }
+
+
+
+
 int main(int argc, char *argv[])
 {
 	
-	while (1) // this should make the server loop forever talking to multiple clients
+	while (keeprunning) // this should make the server loop forever talking to multiple clients by Emnet
 	{
+
+      signal(SIGINT, exitFunction);//By  Emnet checking signals 
+
+
      int sockfd, newsockfd, portno, length;
      socklen_t clilen;
      char buffer[256];
@@ -81,7 +95,7 @@ int main(int argc, char *argv[])
 
 			//while (1) {                                                         // Trying to receive  any incoming udp datagram
 			   
-			   CreateUDPChild(n, sockfd, cli_addr, clilen);
+			   CreateUDPChild(n, sockfd, cli_addr, clilen, keepRunning);
 		  // }
 			 }
 				 
@@ -97,7 +111,7 @@ int main(int argc, char *argv[])
 		//by syedhassan
 		//while(1) //an infinite loop which allows multiple simultanious connection
 		//{
-			CreateChild(newsockfd, sockfd, cli_addr, clilen);
+			CreateChild(newsockfd, sockfd, cli_addr, clilen,keepRuning);
 			//}
 
 			  }

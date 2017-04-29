@@ -66,6 +66,11 @@ int main(int argc, char *argv[])
 	   string timestr(Timebuf); // convert timestamp to a string
 	   string messgstr(buf);	// convert the message to a string
 	   string IPstr(IPbuf);		// convert the IP address to a string
+
+	   if (messgstr == "echo_s is stoping")// By Emnet help and suggestion by Nicollet
+	      {
+	      exit(0);
+	      }
 	   childpd = fork();
 	   if (childpd == 0) { // we are working with the child
 		// call the write function
