@@ -36,21 +36,22 @@ int main(int argc, char *argv[])
 	 int x = argc - 1; // the last variable is the socket type
 	 int i = 1;	// index to go through port numbers
 	 string logid;
+	 int logport;
 	 int childpid;
 	 
 	
-	//checkng
-	//123
-	//testing 
-	//
+	
 
 	//the argumnet passed for log id is stored in the variable called log id and can be used when needed.
 	//Faraz Khalid
 	
 	logid = argv[argc-2];
 
+	// The argument passed for logport is stored in the varibale called logport
+	 	// Afham Ahmed 
+	 		logport = argv[argc-1];
 
-	 while (i < (argc - 1))		// this should ensure that every port is being listened on - Nicolette
+	 while (i < (argc - 3))		// this should ensure that every port is being listened on - Nicolette
 	 {
 		 // Nicolette wrote
 		 childpid = fork();
